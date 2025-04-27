@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>串流/3D視圖 - 智能倉儲監控儀表板</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/streaming.css">
+</head>
+
+<body>
+    <!-- Hamburger Menu Toggle -->
+    <button class="sidebar-toggle-button" aria-label="開啟/關閉導航">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar" class="sidebar">
+        <h3>選單</h3>
+        <ul>
+            <li><a href="index.html">儀表板</a></li>
+            <li><a href="streaming.html" class="active">串流/3D視圖</a></li> <!-- Added active class -->
+        </ul>
+    </nav>
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Main Page Header -->
+    <h1>智能倉儲監控儀表板</h1>
+    <div class="streaming-page-container">
+        <h2>即時影像與3D視圖</h2>
+        <div class="streaming-content-area card">
+            <!-- TwinMaker Section -->
+            <div id="twinmaker-section" class="card">
+                <h3>TwinMaker 3D 視圖</h3>
+                <div id="twinmaker-embed" class="media-placeholder">
+<!--                    <img src="https://raw.githubusercontent.com/yente0603/AI-powered-edge-cloud-warehouse/main/cloud/views/images/twinmaker.png" alt="twinmaker" id="kvs-simulation-image">-->
+                    <video id="twinmaker-video-player" controls autoplay loop muted playsinline>
+                        <source src="https://raw.githubusercontent.com/yente0603/AI-powered-edge-cloud-warehouse/main/cloud/views/images/twin-demo.mp4" type="video/mp4">
+                        您的瀏覽器不支援 HTML video 標籤，無法播放影片。
+                    </video>
+                </div>
+            </div>
+
+            <!-- Kinesis Video Streams Section -->
+            <div id="kvs-section" class="card">
+                <h3>Kinesis Video Streams</h3>
+                <div id="kvs-embed" class="media-placeholder">
+<!--                    <img src="https://raw.githubusercontent.com/yente0603/AI-powered-edge-cloud-warehouse/main/cloud/views/images/kvs-show.png" alt="KVS">-->
+                    <video id="kvs-video-player" controls autoplay loop muted playsinline>
+                        <source src="https://raw.githubusercontent.com/yente0603/AI-powered-edge-cloud-warehouse/main/cloud/views/images/kvs-demo.mp4" type="video/mp4">
+                        您的瀏覽器不支援 HTML video 標籤，無法播放影片。
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script引入檔 -->
+    <script type="module" src="src/uiInteraction.js"></script>
+</body>
+</html></title>
+</head>
+
+</html>

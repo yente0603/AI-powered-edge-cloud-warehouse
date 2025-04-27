@@ -1,0 +1,138 @@
+/* css/streaming.css */
+
+.streaming-page-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    flex-grow: 1;
+    min-height: calc(100vh - 80px - 1.5rem*2);
+    box-sizing: border-box;
+}
+
+.streaming-page-container > h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    text-align: left;
+    margin-left: 1.5rem;
+}
+
+.streaming-content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex-grow: 1;
+    padding: 0 1.5rem;
+}
+
+.streaming-content-area > div.card {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.embed-placeholder,
+.media-placeholder {
+    flex-grow: 1;
+    border: 1px dashed var(--border-color);
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    border-radius: var(--border-radius);
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.embed-placeholder img,
+.media-placeholder img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.media-placeholder video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.streaming-content-area > div.card h3 {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-top: 0;
+    flex-shrink: 0;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+    .streaming-page-container {
+        padding: 1rem;
+        min-height: auto;
+    }
+    .streaming-page-container > h2 {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+    }
+    .streaming-content-area {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    .streaming-content-area > div.card {
+        flex: none;
+        min-height: auto;
+    }
+    .embed-placeholder, .media-placeholder {
+        min-height: 250px;
+        padding: 3rem;
+    }
+    .embed-placeholder img, .media-placeholder img, .media-placeholder video {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 768px) {
+    .streaming-page-container {
+        padding: 0.8rem;
+    }
+    .streaming-page-container > h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+    .streaming-content-area {
+        gap: 0.8rem;
+        padding: 0 0.8rem;
+    }
+    .streaming-content-area > div.card {
+        padding: 3rem;
+    }
+    .streaming-content-area .card h3 {
+        font-size: 1em;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.5rem;
+    }
+    .embed-placeholder, .media-placeholder {
+        min-height: 200px;
+    }
+}

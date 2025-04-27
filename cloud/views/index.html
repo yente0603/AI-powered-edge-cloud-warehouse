@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能倉儲監控儀表板</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="">
+
+    <!-- Hamburger Menu Toggle -->
+    <button class="sidebar-toggle-button" aria-label="開啟/關閉導航">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar" class="sidebar">
+        <h3>選單</h3>
+        <ul>
+            <li><a href="index.html" class="active">儀表板</a></li>
+            <li><a href="streaming.html">串流/3D視圖</a></li>
+        </ul>
+    </nav>
+    <div id="overlay" class="overlay"></div>
+
+    <h1>智能倉儲監控儀表板</h1>
+
+    <!-- Main content container -->
+    <div id="main-content">
+        <div class="container">
+
+            <div class="left-column-wrapper">
+                <!-- 區域1-1: KVS 視訊區 -->
+                <div id="media-placeholder" class="card">
+                    <h2>TwinMaker 3D 視圖</h2>
+                    <div class="media-placeholder">
+<!--                        <img src="https://raw.githubusercontent.com/yente0603/AI-powered-edge-cloud-warehouse/main/cloud/views/images/twinmaker.png" alt="KVS 視訊串流示意圖 - 倉庫環境" id="kvs-simulation-image">-->
+                        <video id="twinmaker-video-player" controls autoplay loop muted playsinline>
+                            <source src="https://raw.githubusercontent.com/yente0603/AI-powered-edge-cloud-warehouse/main/cloud/views/images/twin-demo.mp4" type="video/mp4">
+                            您的瀏覽器不支援 HTML video 標籤，無法播放影片。
+                        </video>
+                    </div>
+                </div>
+
+                <!-- 區域 1-2: 貨架模擬圖 -->
+                <div id="shelf-simulation-section" class="card">
+                    <h2>倉儲貨架圖</h2>
+                    <div id="twinmaker-simulation">
+                        <div class="shelf-row">
+                            <!-- 貨架 A -->
+                            <div class="shelf" id="shelf-A">
+                                <div class="shelf-label">A</div>
+                                <div class="layer"><div class="position" id="pos-A-3-1" data-location="A-3-1">3-1</div><div class="position" id="pos-A-3-2" data-location="A-3-2">3-2</div></div>
+                                <div class="layer"><div class="position" id="pos-A-2-1" data-location="A-2-1">2-1</div><div class="position" id="pos-A-2-2" data-location="A-2-2">2-2</div></div>
+                                <div class="layer"><div class="position" id="pos-A-1-1" data-location="A-1-1">1-1</div><div class="position" id="pos-A-1-2" data-location="A-1-2">1-2</div></div>
+                            </div>
+                            <!-- 貨架 B -->
+                            <div class="shelf" id="shelf-B">
+                                <div class="shelf-label">B</div>
+                                <div class="layer"><div class="position" id="pos-B-3-1" data-location="B-3-1">3-1</div><div class="position" id="pos-B-3-2" data-location="B-3-2">3-2</div></div>
+                                <div class="layer"><div class="position" id="pos-B-2-1" data-location="B-2-1">2-1</div><div class="position" id="pos-B-2-2" data-location="B-2-2">2-2</div></div>
+                                <div class="layer"><div class="position" id="pos-B-1-1" data-location="B-1-1">1-1</div><div class="position" id="pos-B-1-2" data-location="B-1-2">1-2</div></div>
+                            </div>
+                            <!-- 貨架 C -->
+                            <div class="shelf" id="shelf-C">
+                                <div class="shelf-label">C</div>
+                                <div class="layer"><div class="position" id="pos-C-3-1" data-location="C-3-1">3-1</div><div class="position" id="pos-C-3-2" data-location="C-3-2">3-2</div></div>
+                                <div class="layer"><div class="position" id="pos-C-2-1" data-location="C-2-1">2-1</div><div class="position" id="pos-C-2-2" data-location="C-2-2">2-2</div></div>
+                                <div class="layer"><div class="position" id="pos-C-1-1" data-location="C-1-1">1-1</div><div class="position" id="pos-C-1-2" data-location="C-1-2">1-2</div></div>
+                            </div>
+                            <!-- 貨架 D -->
+                            <div class="shelf" id="shelf-D">
+                                <div class="shelf-label">D</div>
+                                <div class="layer"><div class="position" id="pos-D-3-1" data-location="D-3-1">3-1</div><div class="position" id="pos-D-3-2" data-location="D-3-2">3-2</div></div>
+                                <div class="layer"><div class="position" id="pos-D-2-1" data-location="D-2-1">2-1</div><div class="position" id="pos-D-2-2" data-location="D-2-2">2-2</div></div>
+                                <div class="layer"><div class="position" id="pos-D-1-1" data-location="D-1-1">1-1</div><div class="position" id="pos-D-1-2" data-location="D-1-2">1-2</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 區域 3: Chatbot -->
+            <div id="chatbot-section" class="card">
+                <h2>智能倉儲Agent</h2>
+                <div id="chat-history"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="輸入您的問題...">
+                    <button id="send-button">發送</button>
+                </div>
+            </div>
+
+            <!-- 區域 4: 數據儀表板 -->
+            <div id="dashboard-section" class="card">
+                <h2>即時數據</h2>
+                <!-- 圖表區塊... -->
+                <div id="charts-area">
+                    <div class="charts-row">
+                        <div>
+                            <h3>貨架狀態</h3>
+                            <div class="chart-container">
+                                <canvas id="shelfStatusChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>貨物種類比例</h3>
+                            <div class="chart-container">
+                                <canvas id="categoryRatioChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>每日入庫趨勢</h3>
+                        <div class="chart-container">
+                            <canvas id="inventoryTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- 表格區塊 -->
+                <div>
+                    <h3>在庫貨物詳情</h3>
+                    <div id="inventory-table-wrapper" class="inventory-table-wrapper">
+                        <table id="inventory-details" class="inventory-table">
+                            <thead id="inventory-details-thead"></thead>
+                            <tbody id="inventory-details-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div id="inventory-error" class="error-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script引入檔 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="src/app.js"></script>
+    <script type="module" src="src/uiInteraction.js"></script>
+</body>
+</html>
