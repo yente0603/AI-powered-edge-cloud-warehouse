@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Warehouse API
+  version: 1.0.0
+  description: API for retrieving warehouse item data from DynamoDB.
+
+paths:
+  /warehouse/items:  # 你可以根據你的需求定義路徑，Agent 不直接呼叫這個路徑，但它用於定義操作。
+    get:
+      operationId: GetWarehouseItems  # **重要：此ID必須與你的Lambda中actionGroupResults[0].function的值一致**
+      summary: Retrieve warehouse items
+      description: 
+        Retrieves all warehouse items from the database.
+        Optionally, provide an item ID to retrieve a specific item.
+        If an item ID is provided and not found, a message indicating this will be returned.
+      parameters:
+        - name: itemid  # 參數名稱，Agent 會嘗試從使用者輸入中識別此參數
+          in: query     # 參數位置，Bedrock Agent 會將此參數作為事件的一部分傳遞給 Lambda
+          description: The unique identifier (ID) of the item to retrieve. If omitted, all items are returned.
+          required: false # 此參數是可選的
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Warehouse data retrieved successfully.
+          content:
+            application/json:
+              schema:
+                # Agent 預期在 Lambda 回傳的 response.actionGroupResults[0].result.output.text 中找到的 JSON 結構
+                oneOf: # 這裡使用 oneOf 表示回傳的 JSON 可能是以下幾種結構之一
+                  - $ref: '#/components/schemas/AllItemsResponse' # 當掃描所有項目時
+                  - $ref: '#/components/schemas/SingleItemResponse' # 當查詢特定項目且找到時
+                  - $ref: '#/components/schemas/ItemNotFoundResponse' # 當查詢特定項目但未找到時
+                  - $ref: '#/components/schemas/ErrorResponse' # 當發生錯誤時
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/ErrorResponse' # 標準的錯誤回傳結構
+
+components:
+  schemas:
+    WarehouseItem:
+      type: object
+      properties:
+        itemid:
+          type: string
+          description: Unique identifier of the item.
+        入庫員工:
+          type: string
+          description: Name of the person who stored the item.
+        入庫時間:
+          type: string
+          description: Timestamp when the item was stored.
+        物品類型:
+          type: string
+          description: Type or category of the item.
+        是否違規:
+          type: boolean
+          description: Indicates if the item is non-compliant.
+        違規內容:
+          type: string
+          nullable: true # 此字段可能為 null
+          description: Details about the non-compliance, if applicable.
+        是否出庫:
+          type: boolean
+          description: Indicates if the item has been taken out of storage.
+        貨架位置:
+          type: string
+          description: The location (shelf, bin, etc.) of the item in the warehouse.
+      required:
+        - itemid
+        - 入庫員工     # 將所有實際回傳的字段都加入 required 列表
+        - 入庫時間
+        - 物品類型
+        - 是否違規
+        - 違規內容
+        - 是否出庫
+        - 貨架位置
+
+    AllItemsResponse: # 掃描所有項目時的回傳結構
+      type: object
+      properties:
+        item_count:
+          type: integer
+          description: The total number of warehouse items found.
+        warehouse_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseItem' # 陣列中的每個元素都是一個 WarehouseItem
+          description: A list of all warehouse items.
+      required:
+        - item_count
+        - warehouse_items
+
+    SingleItemResponse: # 查詢單個項目且找到時的回傳結構
+      type: object
+      properties:
+        item_found:
+          type: boolean
+          enum: [true] # 嚴格指定必須是 true
+          description: Indicates that the item was found.
+        warehouse_item:
+          $ref: '#/components/schemas/WarehouseItem' # 找到的單個項目
+      required:
+        - item_found
+        - warehouse_item
+
+    ItemNotFoundResponse: # 查詢單個項目但未找到時的回傳結構
+      type: object
+      properties:
+        item_found:
+          type: boolean
+          enum: [false] # 嚴格指定必須是 false
+          description: Indicates that the item was not found.
+        message:
+          type: string
+          description: A message indicating the item was not found.
+      required:
+        - item_found
+        - message
+
+    ErrorResponse: # 錯誤回傳結構
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error type or message.
+        message:
+          type: string
+          description: A human-readable error message.
+        # Agent Lambda 也可能在 result 中額外加 error 字段，但主體數據在 output.text
+        # 你也可以在這裡添加更多錯誤相關字段如果你的 Lambda 回傳了
+      required:
+        - message # 至少包含一個訊息
