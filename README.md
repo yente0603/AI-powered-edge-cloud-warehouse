@@ -72,7 +72,7 @@
 
 ## 系統架構
 以下架構圖展示了本專案中邊緣計算與 AWS 雲端服務之間的關鍵組件及其互動流程：
-![image](aws.drawio.png)
+![image](struc.png)
 
 **架構圖說明：**
 
@@ -94,3 +94,12 @@
 14. **CloudFront -> S3, API Gateway：** CloudFront 可以直接服務 S3 中的靜態資源 (如前端檔案或影像)，也可以將 API 請求轉發給 API Gateway。
 
 此架構圖清晰地描繪了從邊緣裝置的數據採集、雲端的數據攝取、處理、分析、儲存到最終使用者互動的完整流程。
+
+
+基於 AWS Bedrock 的智慧倉儲邊雲 AI 創新應用：本提案建構整合研華 ICAM-540 邊緣 AI 與 AWS 雲端服務的智慧倉儲解決方案。方案核心利用邊緣 (ICAM-540 + Jetson) 即時物件偵測 (ssd-mobilenet-v2) 識別異常，並透過 IoT Core/KVS/S3 將現場數據快速傳至雲端。關鍵在於深入應用 AWS Bedrock 生成式 AI：
+
+智能分析： 利用 Bedrock 模型對事件進行深度情境分析並自動生成詳細報告。
+智能互動： 透過 Bedrock Agent 開發前端 AI 聊天機器人，允許使用者以自然語言查詢 DynamoDB 中的即時倉儲數據或相關守則，實現直覺化互動。
+雲端其他服務如 Lambda、Rekognition 協助處理分析，DynamoDB 儲存數據，IoT TwinMaker 提供視覺化。前端介面由 CloudFront/API Gateway 提供。
+
+本方案結合邊緣低延遲與雲端可擴展性，並以 Bedrock 生成式 AI 為核心賦能，實現自動化深度洞察與革命性人機互動，顯著提升倉儲管理效率與智能化水平。這展示了邊雲協同與生成式 AI 在實際場景的應用價值，符合競賽主題，具有高度技術成熟度與商業潛力。
